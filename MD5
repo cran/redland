@@ -1,6 +1,6 @@
-bba64017bcad590ee80592fc7bcf3831 *DESCRIPTION
+14129d3a7847c95ca170e2be68260e48 *DESCRIPTION
 8d1ebd621662af3e29d96c121a8606f8 *NAMESPACE
-42f73a7bed7884b28a9a26cceab626a5 *NEWS
+15895668fcf206152d90e862e1bba740 *NEWS
 830a83252828aa818699e1c9df805452 *R/Model.R
 c2e7072e97ef56ef6441f61ec2103e82 *R/Node.R
 545c3ce03b2de8aff87ff289bde4db5b *R/Parser.R
@@ -14,9 +14,9 @@ c4477e0257b4cfc1f687b9ea54168b68 *R/Statement.R
 f57a724b2c155d6671c1c860c222c100 *R/redland-package.R
 abbf9460c7ec7b10ab14fe48621762d6 *R/redland.R
 e2dd1cf7d9d827f8e6833814a2754aaf *R/util.R
-8148b76e992a66596e640b83ae841788 *README.md
-dfa94ffd6e677253653b3eecc54fb835 *build/vignette.rds
-41353e3e6d7b288e12ab8d74cbe96ec9 *configure
+46e6c7e1accc7149b4d532ef74bdf38b *README.md
+1be869ee74f05cb300d66036898fa37e *build/vignette.rds
+4e6855257d382dd37e89688e6485f36a *configure
 d41d8cd98f00b204e9800998ecf8427e *configure.win
 d3855d3fbaac2d0a20d1e51d67e1eee3 *inst/CITATION
 b07a9afd8482086dfb02c2a15cee36cd *inst/COPYRIGHTS
@@ -289,7 +289,7 @@ aa424e7805c37478ab27a8dff0393dc4 *man/rasqal_version_minor_get.Rd
 36bd4afd0a3a7f882f5b13eefe9c0904 *man/sub-ExternalReference-method.Rd
 f9745a146d8f14264c226d6537388292 *man/subset-ExternalReference-method.Rd
 06dae6c554fc448dfe0e4ff0566e6415 *src/Makevars.in
-290d756b148d2c2b9fa5a9c73dfb42ac *src/Makevars.win
+fa11364a706ea20aaa21dda5b4e64a29 *src/Makevars.win
 08e813c5fa0640231f513f97fd78215d *src/redland.c
 748492c77d626604f4ebda4f8862db9c *src/util.c
 4d2de501fe63927667fc4eaaacc99a38 *tests/test-all.R

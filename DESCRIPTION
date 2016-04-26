@@ -1,5 +1,5 @@
 Package: redland
-Version: 1.0.17-7
+Version: 1.0.17-8
 Title: RDF Library Bindings in R
 Authors@R: c(
   person("Matthew B.", "Jones", role = c("aut", "cre"), email="jones@nceas.ucsb.edu"),
@@ -11,7 +11,7 @@ Authors@R: c(
   person("University of Bristol", role = c("cph")),
   person("Regents of the University of California", role = c("cph"))
   )
-Date: 2016-03-11
+Date: 2016-04-25
 VignetteBuilder: knitr
 Description: Provides methods to parse, query and serialize information
     stored in the Resource Description Framework (RDF). RDF is described at <http://www.w3.org/TR/rdf-primer>.
@@ -31,7 +31,7 @@ Copyright: See file (inst/)COPYRIGHTS.
 BugReports: https://github.com/ropensci/redland-bindings/issues
 RoxygenNote: 5.0.1
 NeedsCompilation: yes
-Packaged: 2016-03-11 22:32:14 UTC; slaughter
+Packaged: 2016-04-25 22:55:06 UTC; slaughter
 Author: Matthew B. Jones [aut, cre],
   Peter Slaughter [aut],
   Jeroen Ooms [aut],
@@ -42,4 +42,4 @@ Author: Matthew B. Jones [aut, cre],
   Regents of the University of California [cph]
 Maintainer: Matthew B. Jones <jones@nceas.ucsb.edu>
 Repository: CRAN
-Date/Publication: 2016-03-12 08:51:21
+Date/Publication: 2016-04-26 08:44:28
