@@ -1,6 +1,6 @@
-14129d3a7847c95ca170e2be68260e48 *DESCRIPTION
+bcad7f1f005cd7ae2d1c10aca3f04a1e *DESCRIPTION
 8d1ebd621662af3e29d96c121a8606f8 *NAMESPACE
-15895668fcf206152d90e862e1bba740 *NEWS
+25c0a5b4a44715a368f1565d3958ab7f *NEWS
 830a83252828aa818699e1c9df805452 *R/Model.R
 c2e7072e97ef56ef6441f61ec2103e82 *R/Node.R
 545c3ce03b2de8aff87ff289bde4db5b *R/Parser.R
@@ -14,16 +14,17 @@ c4477e0257b4cfc1f687b9ea54168b68 *R/Statement.R
 f57a724b2c155d6671c1c860c222c100 *R/redland-package.R
 abbf9460c7ec7b10ab14fe48621762d6 *R/redland.R
 e2dd1cf7d9d827f8e6833814a2754aaf *R/util.R
-46e6c7e1accc7149b4d532ef74bdf38b *README.md
-1be869ee74f05cb300d66036898fa37e *build/vignette.rds
-4e6855257d382dd37e89688e6485f36a *configure
+9a543d8ba2c440c0e2eaf5c0aea894c7 *README.md
+8a83f427292236bfb5b05e6b849170cb *build/vignette.rds
+6071edd604dbeb75308cfbedc7790398 *cleanup
+f7e37bbecf04ee398c8e2ea4b4846ae5 *configure
 d41d8cd98f00b204e9800998ecf8427e *configure.win
 d3855d3fbaac2d0a20d1e51d67e1eee3 *inst/CITATION
 b07a9afd8482086dfb02c2a15cee36cd *inst/COPYRIGHTS
 0cdeb67a708b9ea50f172e121fb24855 *inst/NOTICE
 13919d3bb5f0fb885e96697e20ca060b *inst/doc/redland_overview.R
-18b5876c81b63d73f737d1bfd4d9b7ae *inst/doc/redland_overview.Rmd
-8b0dbac16a6689491240250607fd20b2 *inst/doc/redland_overview.html
+37ab576c2d89af5986778c79d171c4a3 *inst/doc/redland_overview.Rmd
+fdd090462652e8adfeba4de1bac94553 *inst/doc/redland_overview.html
 67f3001bf4fce8f92ff0b4ebea9927dc *inst/extdata/dc.rdf
 59940b488bb6ae076454faefbc439528 *inst/extdata/example.rdf
 516317e21bdb33945ba922ab55348187 *man/Model-class.Rd
@@ -303,4 +304,4 @@ ca2bddeebd929db072c4441281bb54b3 *tests/testthat/test.Storage.R
 1a9f0bdc6a4379bc174e10594f228932 *tests/testthat/test.World.R
 cdd4ba247cbb6dda7a6f8b5c436d6db7 *tests/testthat/test.redland_base.R
 7485f7296b6c79676f46873d59987cf3 *tools/winlibs.R
-a4a4ec4e5d90d7508e680dcf9c492fce *vignettes/redland_overview.Rmd
+37ab576c2d89af5986778c79d171c4a3 *vignettes/redland_overview.Rmd
