@@ -22,6 +22,7 @@
 #' @include redland.R
 #' @include World.R
 #' @rdname Node-class
+#' @encoding UTF-8
 #' @aliases Node
 #' @keywords classes
 #' @export
@@ -29,7 +30,8 @@
 #' \itemize{
 #'   \item{\code{\link{Node-initialize}}}{: Initialize a Node object.}
 #'   \item{\code{\link{getNodeType}}}{: Determine the node type and return as a string.}
-#'   \item{\code{\link{getBlankNodeId}}}{: Get the blank identifier that has been assigned for a specified Node object.}
+#'   \item{\code{\link{getNodeValue}}}{: Determine the node type and return as a string.}
+#'   \item{\code{\link{getBlankNodeId}}}{: Get the value of the node as a string.}
 #' }
 #' @seealso \code{\link{redland}}{: redland package}
 #' @examples
@@ -44,6 +46,8 @@
 #' node <- new("Node", world, literal="A Node Value")
 #' # a Node type of 'resource' is created
 #' node <- new("Node", world, uri="http://www.example.com")
+#' # Create a literal node, specifying a language encoding
+#' node <- new("Node", world, literal="Gérard de La Martinière", language="fr")
 setClass("Node", slots = c(librdf_node = "_p_librdf_node_s"))
 
 #' Initialize a Node object.
@@ -60,10 +64,12 @@ setClass("Node", slots = c(librdf_node = "_p_librdf_node_s"))
 #' @param literal a literal character value to be assigned to the node
 #' @param uri a uri character value to be assigned to the node
 #' @param blank a blank node identifier to be assigned to the node
-#' @param datatype_uri a uri used to specify the datatype of a literal node, i.e. http://www.w3.org/2001/XMLSchema#string
+#' @param datatype_uri a uri used to specify the datatype of a literal node, i.e. "http://www.w3.org/2001/XMLSchema#string"
+#' @param language a character value specifying the RDF language tag (excluding the "@" symbol), i.e. "fr"
+#' @note Refer to https://www.w3.org/TR/rdf11-concepts information on language tags.
 #' @return the Node object
 #' @export
-setMethod("initialize", signature = "Node", definition = function(.Object, world, literal, uri, blank, datatype_uri) {
+setMethod("initialize", signature = "Node", definition = function(.Object, world, literal, uri, blank, datatype_uri, language) {
   stopifnot(!is.null(world))
   
   # Neither 'literal' nor 'uri', nor 'blank' was specified, so create a blank node with librdf generated id
@@ -75,11 +81,13 @@ setMethod("initialize", signature = "Node", definition = function(.Object, world
     .Object@librdf_node <- librdf_new_node_from_uri(world@librdf_world, librdf_uri)
   } else if (!missing(literal)) {
     # a literal value was specified, but a blank value is not valid
+    if(missing(language)) language="" # No default for language, so if not specified, set to blank
+    #if(!grepl(language, "@")) language <- sprintf("@%s", language)
     if(literal == "") {
       stop(sprintf("Invalid value specified for Node type of literal: \"%s\"", literal))
     } else {
       if (missing(datatype_uri)) {
-        .Object@librdf_node <- librdf_new_node_from_literal(world@librdf_world, literal, "", 0)
+        .Object@librdf_node <- librdf_new_node_from_literal(world@librdf_world, literal, language, 0)
       } else {
           # The datatype_uri specifies the RDF type to be associated with this node
           # and can only be applied to a literal value, therefor only to an object node
@@ -92,7 +100,7 @@ setMethod("initialize", signature = "Node", definition = function(.Object, world
           #     </rdf:Description>
           #   </rdf:RDF>
         type_uri <- librdf_new_uri(world@librdf_world, datatype_uri)
-        .Object@librdf_node <- librdf_new_node_from_typed_literal(world@librdf_world, literal, "", type_uri)
+        .Object@librdf_node <- librdf_new_node_from_typed_literal(world@librdf_world, literal, language, type_uri)
       }
     }
   } else if (!missing(blank)) {
@@ -162,5 +170,48 @@ setMethod("getBlankNodeId", signature("Node"), function(.Object) {
     return(librdf_node_get_blank_identifier(.Object@librdf_node))
   } else {
     return(as.character(NA))
+  }
+})
+
+#' Get the value of the node as a string
+#' @details The value of the node is returned as a string. If the node type is
+#' 'blank', then the blank node identifier is returned. If the node type is
+#' 'literal', then the literal value is returned with the form "<value>"@<language>,
+#' e.g. \"¡Hola, amigo! ¿Cómo estás?"@es". If the node type is 'uri'
+#' then the value is returned as a string.
+#' @rdname getNodeValue
+#' @encoding UTF-8
+#' @param .Object a Node object
+#' @return a string representation of the Node's value
+#' @examples 
+#' world <- new("World")
+#' node <- new("Node", world, literal="¡Hola, amigo! ¿Cómo estás?", language="es")
+#' value <- getNodeValue(node)
+#' @export
+setGeneric("getNodeValue", function(.Object) {
+  standardGeneric("getNodeValue")
+})
+
+#' @rdname getNodeValue
+setMethod("getNodeValue", signature("Node"), function(.Object) {
+  if(librdf_node_is_resource(.Object@librdf_node)) {
+    librdf_uri <- librdf_node_get_uri(.Object@librdf_node) 
+    val <- librdf_uri_to_string(librdf_uri)
+    librdf_free_uri(librdf_uri)
+    return(val)
+  } else if (librdf_node_is_literal(.Object@librdf_node)) {
+    val <- librdf_node_get_literal_value(.Object@librdf_node)
+    lang <- librdf_node_get_literal_value_language(.Object@librdf_node)
+    # If the node has a language tag defined, then include it, otherwise don't
+    if(is.null(lang) || is.na(lang) || lang == "") {
+        literal <- sprintf("%s", val)
+    } else {
+        literal <- sprintf("\"%s\"@%s\"", val, lang)
+    }
+    return(literal)
+  } else if (librdf_node_is_blank(.Object@librdf_node)) {
+    return(getBlankNodeId(.Object))
+  } else {
+    stop("Node type unknown, cannot get the node value")
   }
 })
