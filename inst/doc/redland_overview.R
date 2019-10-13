@@ -11,8 +11,9 @@ parseFileIntoModel(parser, world, system.file("extdata", "dc.rdf", package="redl
 queryString <- 'PREFIX dc: <http://purl.org/dc/elements/1.1/> SELECT ?a ?c WHERE { ?a dc:creator ?c . }'
 query <- new("Query", world, queryString, base_uri=NULL, query_language="sparql", query_uri=NULL)
 queryResult <- executeQuery(query, model)
-result <- getNextResult(queryResult)
-cat(sprintf("Result from query: %s\n", result))
+results <- getResults(query, model, "rdfxml")
+
+cat(sprintf("Results from query: %s\n", results))
 
 ## ------------------------------------------------------------------------
 stmt <- new("Statement", world=world, 

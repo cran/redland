@@ -7,19 +7,20 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <meta name="author" content="Peter Slaughter" />
 
-<meta name="date" content="2018-07-19" />
+<meta name="date" content="2019-10-06" />
 
 <title>redland: create, query and write RDF graphs</title>
 
 
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
+<style type="text/css" data-origin="pandoc">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; position: absolute; }
@@ -83,7 +84,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
 </style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 
@@ -271,6 +294,9 @@ code > span.al { color: #ff0000; font-weight: bold; }
 code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
+
+
+
 </head>
 
 <body>
@@ -279,8 +305,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 <h1 class="title toc-ignore">redland: create, query and write RDF graphs</h1>
-<h4 class="author"><em>Peter Slaughter</em></h4>
-<h4 class="date"><em>2018-07-19</em></h4>
+<h4 class="author">Peter Slaughter</h4>
+<h4 class="date">2019-10-06</h4>
 
 
 
@@ -302,11 +328,33 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">queryString &lt;-<span class="st"> 'PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt; SELECT ?a ?c WHERE { ?a dc:creator ?c . }'</span></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">query &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;Query&quot;</span>, world, queryString, <span class="dt">base_uri=</span><span class="ot">NULL</span>, <span class="dt">query_language=</span><span class="st">&quot;sparql&quot;</span>, <span class="dt">query_uri=</span><span class="ot">NULL</span>)</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">queryResult &lt;-<span class="st"> </span><span class="kw">executeQuery</span>(query, model)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">result &lt;-<span class="st"> </span><span class="kw">getNextResult</span>(queryResult)</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">cat</span>(<span class="kw">sprintf</span>(<span class="st">&quot;Result from query: %s</span><span class="ch">\n</span><span class="st">&quot;</span>, result))</a></code></pre></div>
-<pre><code>## Result from query: &lt;http://www.dajobe.org/&gt;
-##  Result from query: &quot;Dave Beckett&quot;</code></pre>
-<p>Additional results can be obtained by calling getNextResult() until a null value is returned, which indicates that all results have been returned.</p>
+<a class="sourceLine" id="cb2-4" data-line-number="4">results &lt;-<span class="st"> </span><span class="kw">getResults</span>(query, model, <span class="st">&quot;rdfxml&quot;</span>)</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="kw">cat</span>(<span class="kw">sprintf</span>(<span class="st">&quot;Results from query: %s</span><span class="ch">\n</span><span class="st">&quot;</span>, results))</a></code></pre></div>
+<pre><code>## Results from query: &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+## &lt;rdf:RDF xmlns:rdf=&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;
+##    xmlns:rs=&quot;http://www.w3.org/2001/sw/DataAccess/tests/result-set#&quot;&gt;
+##   &lt;rs:ResultSet&gt;
+##     &lt;rs:resultVariable&gt;a&lt;/rs:resultVariable&gt;
+##     &lt;rs:resultVariable&gt;c&lt;/rs:resultVariable&gt;
+##     &lt;rs:solution&gt;
+##       &lt;rdf:Description&gt;
+##         &lt;rs:binding&gt;
+##           &lt;rdf:Description&gt;
+##             &lt;rs:value rdf:resource=&quot;http://www.dajobe.org/&quot;/&gt;
+##             &lt;rs:variable&gt;a&lt;/rs:variable&gt;
+##           &lt;/rdf:Description&gt;
+##         &lt;/rs:binding&gt;
+##         &lt;rs:binding&gt;
+##           &lt;rdf:Description&gt;
+##             &lt;rs:value&gt;Dave Beckett&lt;/rs:value&gt;
+##             &lt;rs:variable&gt;c&lt;/rs:variable&gt;
+##           &lt;/rdf:Description&gt;
+##         &lt;/rs:binding&gt;
+##       &lt;/rdf:Description&gt;
+##     &lt;/rs:solution&gt;
+##   &lt;/rs:ResultSet&gt;
+## &lt;/rdf:RDF&gt;</code></pre>
 <p>Next, additional statements can be added to the RDF graph:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">stmt &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;Statement&quot;</span>, <span class="dt">world=</span>world, </a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">        <span class="dt">subject=</span><span class="st">&quot;http://www.dajobe.org/&quot;</span>,</a>
@@ -321,6 +369,9 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb6-4" data-line-number="4">status &lt;-<span class="st"> </span><span class="kw">serializeToFile</span>(serializer, world, model, filePath)</a></code></pre></div>
 </div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

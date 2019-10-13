@@ -29,31 +29,9 @@ test_that("librdf basic functions", {
     expect_match(class(results), "_p_librdf_query_results")
 
     # Convert the whole sparql result to a string and check its value
-    qstr <- librdf_query_results_to_string(results, NULL, NULL)
+    qstr <- librdf_query_results_to_string2(results, "rdfxml", "application/rdf+xml", NULL, NULL)
     expect_match(qstr, "http://www.dajobe.org/")
     expect_match(qstr, "Beckett")
-
-    # Re-execute the query, and gather each bound node and check its value
-    results <- librdf_model_query_execute(model, query);
-    while (!is.null(results) && librdf_query_results_finished(results) == 0) {
-        num_nodes <- librdf_query_results_get_bindings_count(results)
-        for (i in 1:num_nodes-1) {
-            binding_name <- librdf_query_results_get_binding_name(results, i)
-            val = librdf_query_results_get_binding_value(results, i)
-            expect_match(class(val), "_p_librdf_node_s")
-            if (!is.null.externalptr(val@ref)) {
-                nval <- librdf_node_to_string(val)
-                expect_match(class(nval), "character")
-                expect_match(nval, "[a-z]")
-            } else {
-                nval = "(unbound)"
-            }
-            if (i == 2) {
-                expect_match(nval, "(unbound)")
-            }
-        }
-        rc <- librdf_query_results_next(results)
-    }
 
     # Test adding a new Statement to the model
     about <- "http://matt.magisa.org/"
@@ -84,7 +62,7 @@ test_that("librdf basic functions", {
     filePath <- tempfile(pattern = "file", tmpdir = tempdir(), fileext = ".rdf")
 
     librdf_serializer_serialize_model_to_file(serializer,filePath,base,model);
-    expect_that(file.exists(filePath), is_true())
+    expect_true(file.exists(filePath))
     unlink(filePath)
 
     # Free resources
