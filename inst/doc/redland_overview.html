@@ -1,29 +1,44 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta name="author" content="Peter Slaughter" />
 
-<meta name="date" content="2019-10-06" />
+<meta name="date" content="2020-09-25" />
 
 <title>redland: create, query and write RDF graphs</title>
 
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+});
+</script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -33,16 +48,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -51,9 +66,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -120,9 +135,6 @@ padding-right: 2em;
 font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 1.35;
-}
-#header {
-text-align: center;
 }
 #TOC {
 clear: both;
@@ -291,7 +303,8 @@ code > span.st { color: #d14; }
 code > span.co { color: #888888; font-style: italic; } 
 code > span.ot { color: #007020; } 
 code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
 
@@ -306,31 +319,31 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">redland: create, query and write RDF graphs</h1>
 <h4 class="author">Peter Slaughter</h4>
-<h4 class="date">2019-10-06</h4>
+<h4 class="date">2020-09-25</h4>
 
 
 
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
 <p>The <code>redland</code> R package provides methods to create, query and write to disk data stored in the Resource Description Framework (RDF). RDF provides a standardized way to make statements about resources and the relationships between them. Typical resources include datasets that are available via URLs. Resources don’t have to be available online, for example a resource could also be the name of the person that created a dataset. A collection of RDF statements comprise an RDF graph, which can be read and interpreted by an RDF capable software application that uses the resources described in the graph.</p>
-<p>An introduction to RDF can be found at <a href="http://www.w3.org/TR/2014/NOTE-rdf11-primer-20140624" class="uri">http://www.w3.org/TR/2014/NOTE-rdf11-primer-20140624</a>.</p>
+<p>An introduction to RDF can be found at <a href="http://www.w3.org/TR/2014/NOTE-rdf11-primer-20140624/" class="uri">http://www.w3.org/TR/2014/NOTE-rdf11-primer-20140624/</a>.</p>
 </div>
 <div id="examples" class="section level2">
 <h2>Examples</h2>
 <p>The following example reads an RDF graph from a disk file that was previously saved in the RDF/XML format:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(redland)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">world &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;World&quot;</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">storage &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;Storage&quot;</span>, world, <span class="st">&quot;hashes&quot;</span>, <span class="dt">name=</span><span class="st">&quot;&quot;</span>, <span class="dt">options=</span><span class="st">&quot;hash-type='memory'&quot;</span>)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">model &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;Model&quot;</span>, <span class="dt">world=</span>world, storage, <span class="dt">options=</span><span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">parser &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;Parser&quot;</span>, world)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">parseFileIntoModel</span>(parser, world, <span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;dc.rdf&quot;</span>, <span class="dt">package=</span><span class="st">&quot;redland&quot;</span>), model)</a></code></pre></div>
-<p>Next the RDF graph is queried for statements of interest, using the <a href="http://www.w3.org/TR/rdf-sparql-query">SPARQL query syntax</a></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">queryString &lt;-<span class="st"> 'PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt; SELECT ?a ?c WHERE { ?a dc:creator ?c . }'</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">query &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;Query&quot;</span>, world, queryString, <span class="dt">base_uri=</span><span class="ot">NULL</span>, <span class="dt">query_language=</span><span class="st">&quot;sparql&quot;</span>, <span class="dt">query_uri=</span><span class="ot">NULL</span>)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">queryResult &lt;-<span class="st"> </span><span class="kw">executeQuery</span>(query, model)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">results &lt;-<span class="st"> </span><span class="kw">getResults</span>(query, model, <span class="st">&quot;rdfxml&quot;</span>)</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="kw">cat</span>(<span class="kw">sprintf</span>(<span class="st">&quot;Results from query: %s</span><span class="ch">\n</span><span class="st">&quot;</span>, results))</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(redland)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>world &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;World&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a>storage &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;Storage&quot;</span>, world, <span class="st">&quot;hashes&quot;</span>, <span class="dt">name=</span><span class="st">&quot;&quot;</span>, <span class="dt">options=</span><span class="st">&quot;hash-type=&#39;memory&#39;&quot;</span>)</span>
+<span id="cb1-4"><a href="#cb1-4"></a>model &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;Model&quot;</span>, <span class="dt">world=</span>world, storage, <span class="dt">options=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a>parser &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;Parser&quot;</span>, world)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="kw">parseFileIntoModel</span>(parser, world, <span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;dc.rdf&quot;</span>, <span class="dt">package=</span><span class="st">&quot;redland&quot;</span>), model)</span></code></pre></div>
+<p>Next the RDF graph is queried for statements of interest, using the <a href="http://www.w3.org/TR/rdf-sparql-query/">SPARQL query syntax</a></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>queryString &lt;-<span class="st"> &#39;PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt; SELECT ?a ?c WHERE { ?a dc:creator ?c . }&#39;</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>query &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;Query&quot;</span>, world, queryString, <span class="dt">base_uri=</span><span class="ot">NULL</span>, <span class="dt">query_language=</span><span class="st">&quot;sparql&quot;</span>, <span class="dt">query_uri=</span><span class="ot">NULL</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>queryResult &lt;-<span class="st"> </span><span class="kw">executeQuery</span>(query, model)</span>
+<span id="cb2-4"><a href="#cb2-4"></a>results &lt;-<span class="st"> </span><span class="kw">getResults</span>(query, model, <span class="st">&quot;rdfxml&quot;</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="kw">cat</span>(<span class="kw">sprintf</span>(<span class="st">&quot;Results from query: %s</span><span class="ch">\n</span><span class="st">&quot;</span>, results))</span></code></pre></div>
 <pre><code>## Results from query: &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 ## &lt;rdf:RDF xmlns:rdf=&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;
 ##    xmlns:rs=&quot;http://www.w3.org/2001/sw/DataAccess/tests/result-set#&quot;&gt;
@@ -356,17 +369,17 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ##   &lt;/rs:ResultSet&gt;
 ## &lt;/rdf:RDF&gt;</code></pre>
 <p>Next, additional statements can be added to the RDF graph:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">stmt &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;Statement&quot;</span>, <span class="dt">world=</span>world, </a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">        <span class="dt">subject=</span><span class="st">&quot;http://www.dajobe.org/&quot;</span>,</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">        <span class="dt">predicate=</span><span class="st">&quot;http://purl.org/dc/elements/1.1/language&quot;</span>,</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">        <span class="dt">object=</span><span class="st">&quot;en&quot;</span>)</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="kw">addStatement</span>(model, stmt)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>stmt &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;Statement&quot;</span>, <span class="dt">world=</span>world, </span>
+<span id="cb4-2"><a href="#cb4-2"></a>        <span class="dt">subject=</span><span class="st">&quot;http://www.dajobe.org/&quot;</span>,</span>
+<span id="cb4-3"><a href="#cb4-3"></a>        <span class="dt">predicate=</span><span class="st">&quot;http://purl.org/dc/elements/1.1/language&quot;</span>,</span>
+<span id="cb4-4"><a href="#cb4-4"></a>        <span class="dt">object=</span><span class="st">&quot;en&quot;</span>)</span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="kw">addStatement</span>(model, stmt)</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>Now the RDF graph can be written to disk:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">serializer &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;Serializer&quot;</span>, world, <span class="dt">mimeType=</span><span class="st">&quot;application/rdf+xml&quot;</span>)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">status &lt;-<span class="st"> </span><span class="kw">setNameSpace</span>(serializer, world, <span class="dt">namespace=</span><span class="st">&quot;http://purl.org/dc/elements/1.1/&quot;</span>, <span class="dt">prefix=</span><span class="st">&quot;dc&quot;</span>)  </a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">filePath &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">pattern =</span> <span class="st">&quot;file&quot;</span>, <span class="dt">tmpdir =</span> <span class="kw">tempdir</span>(), <span class="dt">fileext =</span> <span class="st">&quot;.rdf&quot;</span>)</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">status &lt;-<span class="st"> </span><span class="kw">serializeToFile</span>(serializer, world, model, filePath)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>serializer &lt;-<span class="st"> </span><span class="kw">new</span>(<span class="st">&quot;Serializer&quot;</span>, world, <span class="dt">mimeType=</span><span class="st">&quot;application/rdf+xml&quot;</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>status &lt;-<span class="st"> </span><span class="kw">setNameSpace</span>(serializer, world, <span class="dt">namespace=</span><span class="st">&quot;http://purl.org/dc/elements/1.1/&quot;</span>, <span class="dt">prefix=</span><span class="st">&quot;dc&quot;</span>)  </span>
+<span id="cb6-3"><a href="#cb6-3"></a>filePath &lt;-<span class="st"> </span><span class="kw">tempfile</span>(<span class="dt">pattern =</span> <span class="st">&quot;file&quot;</span>, <span class="dt">tmpdir =</span> <span class="kw">tempdir</span>(), <span class="dt">fileext =</span> <span class="st">&quot;.rdf&quot;</span>)</span>
+<span id="cb6-4"><a href="#cb6-4"></a>status &lt;-<span class="st"> </span><span class="kw">serializeToFile</span>(serializer, world, model, filePath)</span></code></pre></div>
 </div>
 
 

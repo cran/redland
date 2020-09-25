@@ -3,7 +3,6 @@
 \docType{package}
 \name{redland}
 \alias{redland}
-\alias{redland-package}
 \title{Create, query and write RDF graphs.}
 \description{
 The R package \emph{redland} provides methods to create, query and write information stored in the
@@ -15,7 +14,7 @@ An overview of the redland R package is available with the R command: \code{'vig
 
 The Redland C library functions are described at \url{http://librdf.org/docs/api/index.html}.
 
-An introduction to RDF can be found at \url{http://www.w3.org/TR/rdf-primer}.
+An introduction to RDF can be found at \url{http://www.w3.org/TR/rdf-primer/}.
 }
 \details{
 The redland R package classes and the corresponding Redland C library types are shown in the following table:
