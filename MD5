@@ -1,6 +1,6 @@
-495e2e610c4489630c88e6d5f31d63e9 *DESCRIPTION
+19e2e9ba11cd0db31e5c2ce5db665251 *DESCRIPTION
 e85bd917375ce513a2510c922344a4dd *NAMESPACE
-250d68e8ffa45d8d6e53132ef16fe2cf *NEWS
+4d4620ac06e3ff3719fc4b98b96984e9 *NEWS
 830a83252828aa818699e1c9df805452 *R/Model.R
 b95c78857cd38dd27073e6dac73f7f34 *R/Node.R
 545c3ce03b2de8aff87ff289bde4db5b *R/Parser.R
@@ -17,7 +17,7 @@ e2dd1cf7d9d827f8e6833814a2754aaf *R/util.R
 5f47afd41b5968848f90ca7a576e5dbd *README.md
 081ba426af0d625054fdeaaeda00c2b4 *build/vignette.rds
 6071edd604dbeb75308cfbedc7790398 *cleanup
-fe67eb66ac366cfc1a502334170968da *configure
+a21190aeac8f1976980f301824dad550 *configure
 d41d8cd98f00b204e9800998ecf8427e *configure.win
 d3855d3fbaac2d0a20d1e51d67e1eee3 *inst/CITATION
 b07a9afd8482086dfb02c2a15cee36cd *inst/COPYRIGHTS
@@ -25,7 +25,7 @@ b07a9afd8482086dfb02c2a15cee36cd *inst/COPYRIGHTS
 f6e936158b460297c7f6c207b24e558c *inst/WORDLIST
 6fece89ee8533c8ce26c5f911020357d *inst/doc/redland_overview.R
 fb49a2101f6a29a88b69da4c5d3362c4 *inst/doc/redland_overview.Rmd
-f08b52dfbab7228aeb8b9a4e135e8532 *inst/doc/redland_overview.html
+8fc7fa841c93092ad4889afa023a4c7c *inst/doc/redland_overview.html
 67f3001bf4fce8f92ff0b4ebea9927dc *inst/extdata/dc.rdf
 59940b488bb6ae076454faefbc439528 *inst/extdata/example.rdf
 7e0f88c1a1d08e1c79daaf28dbcdbddb *man/Model-class.Rd
