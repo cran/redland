@@ -1,4 +1,4 @@
-dca2cbf250b85a1e150ee9bc66eb429a *DESCRIPTION
+3ca20ac915d0201a6baa823330332d18 *DESCRIPTION
 e85bd917375ce513a2510c922344a4dd *NAMESPACE
 859558c10c59b2a85e5892f401ff1431 *NEWS
 830a83252828aa818699e1c9df805452 *R/Model.R
@@ -289,7 +289,7 @@ f9745a146d8f14264c226d6537388292 *man/subset-ExternalReference-method.Rd
 06dae6c554fc448dfe0e4ff0566e6415 *src/Makevars.in
 2cec33791efd347cbcb051402d7cf9c4 *src/Makevars.ucrt
 66fd039a7e2c114bb56c95cd60a33316 *src/Makevars.win
-a3d29747c8749f89565f33cfc05064f9 *src/redland.c
+2a2938cdd93974f2e93b2178635d0dff *src/redland.c
 748492c77d626604f4ebda4f8862db9c *src/util.c
 78a7f421feb7208c58c9197ba4eb5edb *tests/spelling.R
 4d2de501fe63927667fc4eaaacc99a38 *tests/test-all.R
