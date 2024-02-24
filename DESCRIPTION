@@ -1,17 +1,17 @@
 Package: redland
-Version: 1.0.17-17
+Version: 1.0.17-18
 Title: RDF Library Bindings in R
 Authors@R: c(
-  person("Matthew B.", "Jones", role = c("aut", "cre"), email="jones@nceas.ucsb.edu"),
-  person("Peter", "Slaughter", role = c("aut"), email = "slaughter@nceas.ucsb.edu"),
-  person("Jeroen", "Ooms", role = c("aut"), email="jeroen@berkeley.edu"),
-  person("Carl", "Boettiger", role = c("aut"), email = "cboettig@gmail.com"),
-  person("Scott", "Chamberlain", role = c("aut"), email = "myrmecocystus@gmail.com"),
+  person("Matthew B.", "Jones", role = c("aut","cre"), email = "jones@nceas.ucsb.edu", comment=c(ORCID = "0000-0003-0077-4738")),
+  person("Peter", "Slaughter", role = "aut", email = "slaughter@nceas.ucsb.edu", comment=c(ORCID = "0000-0002-2192-403X")),
+  person("Jeroen", "Ooms", role = c("aut"), email="jeroen@berkeley.edu", comment=c(ORCID = "0000-0002-4035-0289")),
+  person("Carl", "Boettiger", role = "aut", email = "cboettig@gmail.com", comment=c(ORCID = "0000-0002-1642-628X")),
+  person("Scott", "Chamberlain", role = "ctb", email = "myrmecocystus@gmail.com", comment=c(ORCID = "0000-0003-1444-9135")),
   person("David", "Beckett", role = c("cph")),
   person("University of Bristol", role = c("cph")),
   person("Regents of the University of California", role = c("cph"))
   )
-Date: 2023-05-22
+Date: 2024-02-23
 VignetteBuilder: knitr
 Description: Provides methods to parse, query and serialize information
     stored in the Resource Description Framework (RDF). RDF is described at <https://www.w3.org/TR/rdf-primer/>.
@@ -29,21 +29,21 @@ Collate: 'redland.R' 'World.R' 'Node.R' 'Statement.R' 'Storage.R'
 License: Apache License 2.0
 Copyright: See file (inst/)COPYRIGHTS.
 BugReports: https://github.com/ropensci/redland-bindings/issues
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 URL: https://github.com/ropensci/redland-bindings/tree/master/R/redland
         https://github.com/ropensci/redland-bindings/tree/master/R
 Encoding: UTF-8
 Language: en-US
 NeedsCompilation: yes
-Packaged: 2023-05-23 09:39:22 UTC; jones
-Author: Matthew B. Jones [aut, cre],
-  Peter Slaughter [aut],
-  Jeroen Ooms [aut],
-  Carl Boettiger [aut],
-  Scott Chamberlain [aut],
+Packaged: 2024-02-24 00:22:59 UTC; jones
+Author: Matthew B. Jones [aut, cre] (<https://orcid.org/0000-0003-0077-4738>),
+  Peter Slaughter [aut] (<https://orcid.org/0000-0002-2192-403X>),
+  Jeroen Ooms [aut] (<https://orcid.org/0000-0002-4035-0289>),
+  Carl Boettiger [aut] (<https://orcid.org/0000-0002-1642-628X>),
+  Scott Chamberlain [ctb] (<https://orcid.org/0000-0003-1444-9135>),
   David Beckett [cph],
   University of Bristol [cph],
   Regents of the University of California [cph]
 Maintainer: Matthew B. Jones <jones@nceas.ucsb.edu>
 Repository: CRAN
-Date/Publication: 2023-05-23 10:50:02 UTC
+Date/Publication: 2024-02-24 01:10:02 UTC
